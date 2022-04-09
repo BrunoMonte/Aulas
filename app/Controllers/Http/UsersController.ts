@@ -1,9 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from '../../Models/User'
+import * as user from '../../Services/user'
 
 export default class UsersController {
   public async store({ request, response }: HttpContextContract) {
-    const { email, username , password} =  request.all()
+    const { email, username , password } =  request.all()
     const user = new User()
 
     user.email = email
@@ -13,7 +14,9 @@ export default class UsersController {
     const userExists = User.find({ where: { email } })
 
     if(await userExists){
+
       return response.status(409).json({message: "Username contains this registered email."})
+    
     }
 
     await user.save()
@@ -21,7 +24,7 @@ export default class UsersController {
     return response.status(200).json(user)
   }
 
-  public async login({ request, response }:HttpContextContract) {
+  public async login({ response }:HttpContextContract) {
     try {
 
     } catch (error) {
