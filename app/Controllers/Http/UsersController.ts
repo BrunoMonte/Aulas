@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from '../../Models/User'
-import * as user from '../../Services/user'
 
 export default class UsersController {
   public async store({ request, response }: HttpContextContract) {
@@ -28,7 +27,9 @@ export default class UsersController {
     try {
 
     } catch (error) {
+
       return response.status(500).send({ error: error })
+    
     }
   }
 
